@@ -5,15 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>WellStar Onboarding Dashboard</title>
   <style>
-    /* --- Wellstar Color Palette --- */
+    /* --- Wellstar Color Palette & UI Variables --- */
     :root {
       --wellstar-purple: #8246AF;
       --wellstar-caribbean-blue: #005571;
       --wellstar-teal: #008A97;
       --wellstar-blue: #00A7E1;
+
       --wellstar-teal-darker: #006a75; /* For button hover */
-      --light-blue-bg: #e6f6fc; /* Lighter tint for backgrounds */
       --light-purple-bg: #f3eef8;
+      --light-purple-border: #dcc6eb;
+      --light-blue-bg: #e6f6fc;
+      --off-white-bg: #f7fafc; /* For list items and subtle backgrounds */
+      --border-color: #dde8f0; /* Soft border color */
+      --text-primary: #005571; /* Caribbean Blue for primary text */
+      --text-secondary: #5a6872; /* Muted gray-blue for notes */
     }
 
     body {
@@ -21,7 +27,7 @@
       margin: 0;
       padding: 20px;
       background-color: #f4f7f6;
-      color: #333;
+      color: var(--text-primary);
       line-height: 1.6;
     }
 
@@ -32,7 +38,7 @@
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      border-top: 5px solid var(--wellstar-purple); /* UPDATED COLOR */
+      border-top: 5px solid var(--wellstar-purple);
     }
 
     .logo-container {
@@ -46,12 +52,12 @@
 
     h1 {
       text-align: center;
-      color: var(--wellstar-purple); /* UPDATED COLOR */
+      color: var(--wellstar-purple);
       font-size: 2.5em;
       margin-bottom: 25px;
     }
 
-    /* Kept yellow for standard warning UI */
+    /* Standard warning colors retained for accessibility and UX convention */
     .alert {
       background-color: #fff3cd;
       border: 1px solid #ffeeba;
@@ -63,28 +69,23 @@
       align-items: center;
       gap: 10px;
     }
-
-    .alert .icon {
-      font-size: 1.8em;
-      color: #856404;
-    }
+    .alert .icon { font-size: 1.8em; color: #856404; }
 
     .info-card {
-      background-color: var(--light-blue-bg); /* UPDATED COLOR */
-      border-left: 5px solid var(--wellstar-blue); /* UPDATED COLOR */
+      background-color: var(--light-blue-bg);
+      border-left: 5px solid var(--wellstar-blue);
       padding: 20px;
       margin-bottom: 20px;
       border-radius: 8px;
       display: flex;
       align-items: flex-start;
       gap: 15px;
-      color: var(--wellstar-caribbean-blue); /* UPDATED COLOR */
+      color: var(--text-primary);
       font-weight: 600;
     }
-
     .info-card .icon {
       font-size: 1.8em;
-      color: var(--wellstar-blue); /* UPDATED COLOR */
+      color: var(--wellstar-blue);
       flex-shrink: 0;
     }
     
@@ -97,7 +98,7 @@
     .tabs {
       display: flex;
       flex-direction: column;
-      border-right: 2px solid #ccc;
+      border-right: 2px solid var(--border-color);
       flex-shrink: 0;
       flex-basis: 200px;
     }
@@ -105,12 +106,12 @@
     .tab {
       padding: 15px 20px;
       cursor: pointer;
-      background: #f0f0f0;
+      background: var(--off-white-bg);
       border: none;
       outline: none;
       border-radius: 5px 0 0 5px;
       font-weight: 600;
-      color: var(--wellstar-caribbean-blue); /* UPDATED COLOR */
+      color: var(--text-primary);
       user-select: none;
       transition: background-color 0.3s, color 0.3s;
       text-align: left;
@@ -119,29 +120,24 @@
     }
 
     .tab:hover:not(.active) {
-      background-color: var(--light-blue-bg); /* UPDATED COLOR */
+      background-color: var(--light-blue-bg);
     }
 
     .tab.active {
       background: #fff;
       font-weight: 700;
-      color: var(--wellstar-purple); /* UPDATED COLOR */
-      border-right-color: var(--wellstar-purple); /* UPDATED COLOR */
+      color: var(--wellstar-purple);
+      border-right-color: var(--wellstar-purple);
       position: relative;
     }
 
-    .content-area {
-        flex-grow: 1;
-    }
+    .content-area { flex-grow: 1; }
 
     .tab-content {
       display: none;
       padding: 0 0 0 10px;
     }
-
-    .tab-content.active {
-      display: block;
-    }
+    .tab-content.active { display: block; }
 
     ul {
       list-style: none;
@@ -150,15 +146,14 @@
     }
 
     li {
-      background: #f8fbfd;
-      border: 1px solid #dee7ed;
+      background: var(--off-white-bg);
+      border: 1px solid var(--border-color);
       margin-bottom: 8px;
       padding: 12px 15px;
       border-radius: 5px;
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      color: #333;
       font-weight: normal;
     }
 
@@ -167,11 +162,12 @@
       transform: scale(1.3);
       cursor: pointer;
       flex-shrink: 0;
+      accent-color: var(--wellstar-purple); /* Brand color for checkbox */
     }
 
     .note {
       font-style: italic;
-      color: #6a6a6a;
+      color: var(--text-secondary);
       font-size: 0.9em;
       margin-top: 5px;
       flex-grow: 1;
@@ -179,7 +175,7 @@
 
     .button-link {
       display: inline-block;
-      background-color: var(--wellstar-teal); /* UPDATED COLOR */
+      background-color: var(--wellstar-teal);
       color: white;
       padding: 8px 18px;
       border-radius: 5px;
@@ -188,10 +184,7 @@
       transition: background-color 0.3s ease;
       font-weight: 600;
     }
-
-    .button-link:hover {
-      background-color: var(--wellstar-teal-darker); /* UPDATED COLOR */
-    }
+    .button-link:hover { background-color: var(--wellstar-teal-darker); }
 
     .note-section textarea {
       width: 100%;
@@ -199,15 +192,15 @@
       padding: 10px;
       margin-top: 10px;
       border-radius: 5px;
-      border: 1px solid #ccc;
+      border: 1px solid var(--border-color);
       resize: vertical;
       font-size: 1em;
       font-family: inherit;
     }
 
     .note-item {
-      background-color: #eef6ff;
-      border: 1px solid #aacdf1;
+      background-color: var(--light-blue-bg);
+      border: 1px solid var(--border-color);
       padding: 10px;
       margin-top: 10px;
       border-radius: 5px;
@@ -215,28 +208,25 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      color: #003366;
+      color: var(--text-primary);
     }
-
-    .note-item.expanded {
-      white-space: normal;
-    }
+    .note-item.expanded { white-space: normal; }
 
     .note-date {
       font-size: 0.85em;
-      color: #555;
+      color: var(--text-secondary);
       margin-bottom: 5px;
       font-weight: 600;
     }
 
     .contact-info {
-      background-color: var(--light-purple-bg); /* UPDATED COLOR */
-      border: 1px solid #dcc6eb; /* UPDATED COLOR */
+      background-color: var(--light-purple-bg);
+      border: 1px solid var(--light-purple-border);
       padding: 20px;
       border-radius: 8px;
       margin-top: 30px;
       text-align: center;
-      color: var(--wellstar-purple); /* UPDATED COLOR */
+      color: var(--wellstar-purple);
       font-weight: 600;
       font-size: 1.1em;
     }
@@ -245,7 +235,8 @@
 <body>
   <div class="container">
     <div class="logo-container">
-      <img src="https://www.wellstar.org/-/media/project/wellstar/whs-logo.png" alt="Wellstar Logo" class="logo">
+      <!-- Please replace this URL with the new one you have -->
+      <img src="http://googleusercontent.com/image_collection/image_retrieval/10086739972382861339" alt="Wellstar Logo" class="logo">
     </div>
 
     <h1>Welcome to WellStar, Zackary!</h1>
