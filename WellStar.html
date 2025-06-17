@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WellStar Onboarding Dashboard</title>
+  <style>
+    /* --- Wellstar Color Palette & UI Variables --- */
+    :root {
+      --wellstar-purple: #8246AF;
+      --wellstar-caribbean-blue: #005571;
+      --wellstar-teal: #008A97;
+      --wellstar-blue: #00A7E1;
+
+      --wellstar-teal-darker: #006a75;
+      --light-purple-bg: #f8f5fc;
+      --light-purple-border: #e9d9f5;
+      --light-blue-bg: #eaf8ff;
+      --off-white-bg: #f7fafc;
+      --border-color: #e2e8f0;
+      --text-primary: #004a60; /* Darker Caribbean Blue for better contrast */
+      --text-secondary: #5a6872;
+      --container-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --element-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f0f4f8; /* Softer page background */
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: 20px auto;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: var(--container-shadow);
+      overflow: hidden; /* Important for containing child elements */
+    }
+
+    /* --- NEW: Redesigned Header --- */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 30px;
+      background-color: var(--light-purple-bg);
+      border-bottom: 1px solid var(--light-purple-border);
+    }
+
+    .logo {
+      max-width: 180px; /* REDUCED: Smaller, more appropriate logo size */
+      height: auto;
+    }
+
+    h1 {
+      color: var(--wellstar-purple);
+      font-size: 2.1em; /* REDUCED: Slightly smaller H1 */
+      margin: 0;
+      text-align: right;
+    }
+    
+    .dashboard-body {
+        padding: 30px;
+    }
+
+    /* Standard warning colors retained for accessibility */
+    .alert {
+      background-color: #fffbe6;
+      border: 1px solid #fde68a;
+      color: #b45309;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .alert strong { color: #92400e; }
+    .alert .icon { font-size: 1.6em; }
+
+    .main-content-area {
+      display: flex;
+      margin-top: 25px;
+      gap: 30px;
+    }
+
+    .tabs {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      flex-basis: 210px;
+    }
+
+    .tab {
+      padding: 12px 18px;
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      font-weight: 600;
+      color: var(--text-primary);
+      user-select: none;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      text-align: left;
+      margin-bottom: 5px;
+    }
+
+    .tab:hover:not(.active) {
+      background-color: var(--light-blue-bg);
+      color: var(--wellstar-blue);
+    }
+
+    .tab.active {
+      background-color: var(--wellstar-purple);
+      color: white;
+      font-weight: 700;
+    }
+
+    .content-area { flex-grow: 1; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    
+    .info-card {
+      background-color: var(--light-blue-bg);
+      border-left: 4px solid var(--wellstar-blue);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    .info-card strong { font-weight: 700; }
+    .info-card .icon {
+      font-size: 1.7em;
+      color: var(--wellstar-blue);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .info-card a {
+        color: var(--wellstar-teal);
+        font-weight: 600;
+        text-decoration: none;
+    }
+    .info-card a:hover { text-decoration: underline; }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    li {
+      background: var(--off-white-bg);
+      border: 1px solid var(--border-color);
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      transition: box-shadow 0.2s ease;
+    }
+    li:hover { box-shadow: var(--element-shadow); }
+
+    input[type="checkbox"] {
+      margin-top: 5px;
+      transform: scale(1.4);
+      cursor: pointer;
+      flex-shrink: 0;
+      accent-color: var(--wellstar-purple);
+    }
+
+    .note {
+      font-style: italic;
+      color: var(--text-secondary);
+      font-size: 0.9em;
+      margin-top: 5px;
+      flex-grow: 1;
+    }
+
+    .button-link {
+      display: inline-block;
+      background-color: var(--wellstar-teal);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 10px;
+      transition: background-color 0.2s ease;
+      font-weight: 600;
+      border: none;
+    }
+    .button-link:hover { background-color: var(--wellstar-teal-darker); }
+
+    .note-section textarea {
+      width: 100%;
+      box-sizing: border-box; /* Ensures padding is included in width */
+      height: 70px;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      resize: vertical;
+      font-size: 1em;
+      font-family: inherit;
+    }
+    .note-section textarea:focus {
+        border-color: var(--wellstar-blue);
+        outline: none;
+        box-shadow: 0 0 0 2px var(--light-blue-bg);
+    }
+    
+    #notesList { margin-top: 15px; }
+    .note-item {
+      background-color: var(--off-white-bg);
+      border: 1px solid var(--border-color);
+      padding: 12px 15px;
+      margin-top: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .note-item.expanded { white-space: normal; }
+    .note-date {
+      font-size: 0.85em;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .contact-info {
+      background-color: var(--light-purple-bg);
+      border-top: 1px solid var(--light-purple-border);
+      padding: 25px;
+      margin: 30px -30px -30px; /* Negative margin to span full width */
+      text-align: center;
+      color: var(--wellstar-purple);
+      font-weight: 600;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <img src="https://www.wellstar.org/-/media/project/wellstar/whs-logo.png" alt="Wellstar Logo" class="logo">
+      <h1>Welcome, Zackary!</h1>
+    </header>
+
+    <div class="dashboard-body">
+      <div class="main-content-area">
+        <div class="tabs">
+          <button class="tab active" data-tab="general">General</button>
+          <button class="tab" data-tab="checklist">Preboarding Tasks</button>
+          <button class="tab" data-tab="resources">Helpful Resources</button>
+          <button class="tab" data-tab="notes">Notes</button>
+        </div>
+
+        <div class="content-area">
+          <div id="general" class="tab-content active">
+            <div class="alert">
+              <span class="icon">⚠</span>
+              <p><strong>Important Note:</strong> Your Workday tasks will be available within 30 days of your start date (<strong>June 7, 2025</strong>). Keep an eye out for username/password emails around that time!</p>
+            </div>
+        
+            <div class="info-card">
+              <span class="icon"></span>
+              <div>
+                <strong>Your Preboarding Coordinator:</strong><br>
+                Lashanti Patton<br>
+                Email: <a href="mailto:lashanti.patton@wellstar.org">lashanti.patton@wellstar.org</a><br>
+                Phone: <a href="tel:470-956-5717">470-956-5717</a>
+              </div>
+            </div>
+        
+            <div class="info-card">
+              <span class="icon"></span>
+              <div>
+                <strong>Tentative Start Date:</strong><br>
+                July 7, 2025<br>
+                <strong>Your Employee ID:</strong><br>
+                194879
+              </div>
+            </div>
+          </div>
+          
+          <div id="checklist" class="tab-content">
+            <ul id="taskList">
+              <li>
+                <input type="checkbox" id="task1" />
+                <div>
+                  <strong>Workday Journey:</strong> Complete tasks in Workday.<br>
+                  <span class="note">Includes I-9, confidentiality form, and licenses.</span>
+                </div>
+              </li>
+              <li>
+                <input type="checkbox" id="task2" />
+                <div>
+                  <strong>Drug Screen:</strong> Complete at LabCorp.<br>
+                  <span class="note">Bring the provided form with you.</span>
+                </div>
+              </li>
+              <li>
+                <input type="checkbox" id="task3" />
+                <div>
+                  <strong>Background Check:</strong> Complete consent form via Cisive.<br>
+                  <span class="note">Check spam/junk if you don’t see it.</span>
+                </div>
+              </li>
+              <li>
+                <input type="checkbox" id="task4" />
+                <div>
+                  <strong>Employee Health:</strong> Schedule your health screening.<br>
+                  <span class="note">You’ll need your EID to schedule.</span>
+                </div>
+              </li>
+              <li>
+                <input type="checkbox" id="task5" />
+                <div>
+                  <strong>I-9 Section 2:</strong> Schedule virtual appointment with Lashanti.<br>
+                  <span class="note">Must be done before your start date.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+      
+          <div id="resources" class="tab-content">
+            <ul>
+              <li>
+                <strong>Onboarding Resource Center:</strong><br>
+                <a class="button-link" href="https://careers.wellstar.org/onboarding" target="_blank" rel="noopener noreferrer">Visit Resource Center</a>
+              </li>
+              <li>
+                <strong>Workday Login:</strong><br>
+                <a class="button-link" href="https://www.myworkday.com/wellstar/login.flex?redirect=n" target="_blank" rel="noopener noreferrer">Log In to Workday</a>
+              </li>
+              <li>
+                <strong>BLS Certification (if required):</strong><br>
+                Must be American Heart Association approved. No reimbursement provided.
+              </li>
+            </ul>
+          </div>
+      
+          <div id="notes" class="tab-content note-section">
+            <textarea id="noteInput" placeholder="Write a note..."></textarea>
+            <button class="button-link" onclick="saveNote()">Add Note</button>
+            <div id="notesList"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-info">
+        <p><strong>Welcome to the Wellstar Team!</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Save/load checkbox state
+    document.querySelectorAll('#taskList input[type="checkbox"]').forEach(cb => {
+      const saved = localStorage.getItem(cb.id);
+      cb.checked = saved === 'true';
+      cb.addEventListener('change', () => {
+        localStorage.setItem(cb.id, cb.checked);
+      });
+    });
+
+    // Notes functionality
+    function saveNote() {
+      const input = document.getElementById('noteInput');
+      if (!input.value.trim()) return;
+
+      const note = { 
+        text: input.value.trim(), 
+        date: new Date().toLocaleString() 
+      };
+      const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+      notes.unshift(note); // Add new notes to the beginning
+      localStorage.setItem('notes', JSON.stringify(notes));
+      input.value = '';
+      renderNotes();
+    }
+
+    function renderNotes() {
+      const notesList = document.getElementById('notesList');
+      notesList.innerHTML = '';
+      const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+      notes.forEach((note) => {
+        const div = document.createElement('div');
+        div.className = 'note-item';
+        div.innerHTML = `<div class="note-date">${note.date}</div><div>${note.text.replace(/\n/g, '<br>')}</div>`;
+        div.onclick = () => div.classList.toggle('expanded');
+        notesList.appendChild(div);
+      });
+    }
+    
+    document.addEventListener('DOMContentLoaded', renderNotes);
+  </script>
+</body>
+</html>
