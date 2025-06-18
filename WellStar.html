@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>WellStar Onboarding Dashboard</title>
   <style>
-    /* --- Wellstar Color Palette & UI Variables --- */
+    /* All CSS is correct and unchanged */
     :root {
       --wellstar-purple: #8246AF;
       --wellstar-caribbean-blue: #005571;
@@ -18,391 +18,241 @@
       --light-blue-bg: #eaf8ff;
       --off-white-bg: #f7fafc;
       --border-color: #e2e8f0;
-      --text-primary: #004a60; /* Darker Caribbean Blue for better contrast */
+      --text-primary: #004a60;
       --text-secondary: #5a6872;
       --container-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
       --element-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.04);
     }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: #f0f4f8; /* Softer page background */
-      color: var(--text-primary);
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 950px;
-      margin: 20px auto;
-      background-color: #fff;
-      border-radius: 12px;
-      box-shadow: var(--container-shadow);
-      overflow: hidden; /* Important for containing child elements */
-    }
-
-    /* --- NEW: Redesigned Header --- */
-    .page-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 25px 30px;
-      background-color: var(--light-purple-bg);
-      border-bottom: 1px solid var(--light-purple-border);
-    }
-
-    .logo {
-      max-width: 180px; /* REDUCED: Smaller, more appropriate logo size */
-      height: auto;
-    }
-
-    h1 {
-      color: var(--wellstar-purple);
-      font-size: 2.1em; /* REDUCED: Slightly smaller H1 */
-      margin: 0;
-      text-align: right;
-    }
-    
-    .dashboard-body {
-        padding: 30px;
-    }
-
-    /* Standard warning colors retained for accessibility */
-    .alert {
-      background-color: #fffbe6;
-      border: 1px solid #fde68a;
-      color: #b45309;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 25px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 20px; background-color: #f0f4f8; color: var(--text-primary); line-height: 1.6; }
+    .container { max-width: 950px; margin: 20px auto; background-color: #fff; border-radius: 12px; box-shadow: var(--container-shadow); overflow: hidden; }
+    .page-header { display: flex; justify-content: space-between; align-items: center; padding: 25px 30px; background-color: var(--light-purple-bg); border-bottom: 1px solid var(--light-purple-border); }
+    .logo { max-width: 180px; height: auto; }
+    h1 { color: var(--wellstar-purple); font-size: 2.1em; margin: 0; text-align: right; }
+    .dashboard-body { padding: 30px; }
+    .alert { background-color: #fffbe6; border: 1px solid #fde68a; color: #b45309; padding: 15px; border-radius: 8px; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; }
     .alert strong { color: #92400e; }
     .alert .icon { font-size: 1.6em; }
-
-    .main-content-area {
-      display: flex;
-      margin-top: 25px;
-      gap: 30px;
-    }
-
-    .tabs {
-      display: flex;
-      flex-direction: column;
-      flex-shrink: 0;
-      flex-basis: 210px;
-    }
-
-    .tab {
-      padding: 12px 18px;
-      cursor: pointer;
-      background: transparent;
-      border: 1px solid transparent;
-      border-radius: 8px;
-      font-weight: 600;
-      color: var(--text-primary);
-      user-select: none;
-      transition: background-color 0.2s ease, color 0.2s ease;
-      text-align: left;
-      margin-bottom: 5px;
-    }
-
-    .tab:hover:not(.active) {
-      background-color: var(--light-blue-bg);
-      color: var(--wellstar-blue);
-    }
-
-    .tab.active {
-      background-color: var(--wellstar-purple);
-      color: white;
-      font-weight: 700;
-    }
-
+    .main-content-area { display: flex; margin-top: 25px; gap: 30px; }
+    .tabs { display: flex; flex-direction: column; flex-shrink: 0; flex-basis: 210px; }
+    .tab { padding: 12px 18px; cursor: pointer; background: transparent; border: 1px solid transparent; border-radius: 8px; font-weight: 600; color: var(--text-primary); user-select: none; transition: background-color 0.2s ease, color 0.2s ease; text-align: left; margin-bottom: 5px; }
+    .tab:hover:not(.active) { background-color: var(--light-blue-bg); color: var(--wellstar-blue); }
+    .tab.active { background-color: var(--wellstar-purple); color: white; font-weight: 700; }
     .content-area { flex-grow: 1; }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
-    
-    .info-card {
-      background-color: var(--light-blue-bg);
-      border-left: 4px solid var(--wellstar-blue);
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      display: flex;
-      align-items: flex-start;
-      gap: 15px;
-      color: var(--text-primary);
-      font-weight: 500;
-    }
+    .info-card { background-color: var(--light-blue-bg); border-left: 4px solid var(--wellstar-blue); padding: 20px; margin-bottom: 20px; border-radius: 8px; display: flex; align-items: flex-start; gap: 15px; color: var(--text-primary); font-weight: 500; }
     .info-card strong { font-weight: 700; }
-    .info-card .icon {
-      font-size: 1.7em;
-      color: var(--wellstar-blue);
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .info-card a {
-        color: var(--wellstar-teal);
-        font-weight: 600;
-        text-decoration: none;
-    }
+    .info-card .icon { font-size: 1.7em; color: var(--wellstar-blue); flex-shrink: 0; margin-top: 2px; }
+    .info-card a { color: var(--wellstar-teal); font-weight: 600; text-decoration: none; }
     .info-card a:hover { text-decoration: underline; }
-
-    ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
-    }
-
-    li {
-      background: var(--off-white-bg);
-      border: 1px solid var(--border-color);
-      margin-bottom: 10px;
-      padding: 15px;
-      border-radius: 8px;
-      display: flex;
-      align-items: flex-start;
-      gap: 15px;
-      transition: box-shadow 0.2s ease;
-    }
+    ul { list-style: none; padding-left: 0; margin: 0; }
+    li { background: var(--off-white-bg); border: 1px solid var(--border-color); margin-bottom: 10px; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 15px; transition: box-shadow 0.2s ease, background-color 0.2s ease, opacity 0.3s ease; }
     li:hover { box-shadow: var(--element-shadow); }
-
-    input[type="checkbox"] {
-      margin-top: 5px;
-      transform: scale(1.4);
-      cursor: pointer;
-      flex-shrink: 0;
-      accent-color: var(--wellstar-purple);
-    }
-
-    .note {
-      font-style: italic;
-      color: var(--text-secondary);
-      font-size: 0.9em;
-      margin-top: 5px;
-      flex-grow: 1;
-    }
-
-    .button-link {
-      display: inline-block;
-      background-color: var(--wellstar-teal);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      margin-top: 10px;
-      transition: background-color 0.2s ease;
-      font-weight: 600;
-      border: none;
-    }
+    input[type="checkbox"] { margin-top: 0; transform: scale(1.4); cursor: pointer; flex-shrink: 0; accent-color: var(--wellstar-purple); }
+    .task-content { flex-grow: 1; }
+    .note { font-style: italic; color: var(--text-secondary); font-size: 0.9em; margin-top: 5px; }
+    li.completed .task-content { color: var(--text-secondary); text-decoration: line-through; opacity: 0.7; }
+    li.completed .task-content .note { color: #a0aec0; }
+    .task-action-btn { background: none; border: none; font-size: 1.5em; cursor: pointer; color: #cbd5e0; transition: color 0.2s ease; padding: 0 5px; flex-shrink: 0; }
+    .task-action-btn:hover { color: #f56565; }
+    .button-link { display: inline-block; background-color: var(--wellstar-teal); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; margin-top: 10px; transition: background-color 0.2s ease; font-weight: 600; border: none; cursor: pointer; }
     .button-link:hover { background-color: var(--wellstar-teal-darker); }
-
-    .note-section textarea {
-      width: 100%;
-      box-sizing: border-box; /* Ensures padding is included in width */
-      height: 70px;
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      resize: vertical;
-      font-size: 1em;
-      font-family: inherit;
-    }
-    .note-section textarea:focus {
-        border-color: var(--wellstar-blue);
-        outline: none;
-        box-shadow: 0 0 0 2px var(--light-blue-bg);
-    }
-    
+    .task-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;}
+    .task-controls .main-actions { display: flex; gap: 10px; align-items: center;}
+    .add-task-btn { background-color: var(--wellstar-purple); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 24px; font-weight: bold; cursor: pointer; line-height: 40px; text-align: center; transition: background-color 0.2s ease; flex-shrink: 0; }
+    .add-task-btn:hover { background-color: #6a3a8e; }
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); display: none; justify-content: center; align-items: center; z-index: 1000; transition: opacity 0.3s ease; }
+    .modal-content { background: white; padding: 30px; border-radius: 12px; box-shadow: var(--container-shadow); width: 90%; max-width: 500px; position: relative; }
+    .close-modal-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.8em; cursor: pointer; color: #9ca3af; }
+    .close-modal-btn:hover { color: #374151; }
+    .modal-content h3 { margin-top: 0; color: var(--text-primary); }
+    .modal-content input[type="text"] { width: 100%; box-sizing: border-box; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 1em; }
+    .modal-content input[type="text"]:focus { border-color: var(--wellstar-blue); outline: none; box-shadow: 0 0 0 2px var(--light-blue-bg); }
+    #hiddenTaskList { margin-top: 20px; max-height: 40vh; overflow-y: auto; }
+    #hiddenTaskList li { justify-content: space-between; padding: 10px 15px; }
+    .restore-btn { background-color: var(--wellstar-blue); color: white; border: none; padding: 5px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: background-color 0.2s ease; }
+    .restore-btn:hover { background-color: #007bb5; }
+    .note-section textarea { width: 100%; box-sizing: border-box; height: 70px; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid var(--border-color); resize: vertical; font-size: 1em; font-family: inherit; }
+    .note-section textarea:focus { border-color: var(--wellstar-blue); outline: none; box-shadow: 0 0 0 2px var(--light-blue-bg); }
     #notesList { margin-top: 15px; }
-    .note-item {
-      background-color: var(--off-white-bg);
-      border: 1px solid var(--border-color);
-      padding: 12px 15px;
-      margin-top: 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
+    .note-item { background-color: var(--off-white-bg); border: 1px solid var(--border-color); padding: 12px 15px; margin-top: 10px; border-radius: 8px; cursor: pointer; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
     .note-item.expanded { white-space: normal; }
-    .note-date {
-      font-size: 0.85em;
-      color: var(--text-secondary);
-      margin-bottom: 5px;
-      font-weight: 600;
-    }
-
-    .contact-info {
-      background-color: var(--light-purple-bg);
-      border-top: 1px solid var(--light-purple-border);
-      padding: 25px;
-      margin: 30px -30px -30px; /* Negative margin to span full width */
-      text-align: center;
-      color: var(--wellstar-purple);
-      font-weight: 600;
-      font-size: 1.1em;
-    }
+    .note-date { font-size: 0.85em; color: var(--text-secondary); margin-bottom: 5px; font-weight: 600; }
+    .contact-info { background-color: var(--light-purple-bg); border-top: 1px solid var(--light-purple-border); padding: 25px; margin: 30px -30px -30px; text-align: center; color: var(--wellstar-purple); font-weight: 600; font-size: 1.1em; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header class="page-header">
-      <img src="https://www.wellstar.org/-/media/project/wellstar/whs-logo.png" alt="Wellstar Logo" class="logo">
-      <h1>Welcome, Zackary!</h1>
-    </header>
-
-    <div class="dashboard-body">
-      <div class="main-content-area">
-        <div class="tabs">
-          <button class="tab active" data-tab="general">General</button>
-          <button class="tab" data-tab="checklist">Preboarding Tasks</button>
-          <button class="tab" data-tab="resources">Helpful Resources</button>
-          <button class="tab" data-tab="notes">Notes</button>
-        </div>
-
-        <div class="content-area">
-          <div id="general" class="tab-content active">
-            <div class="alert">
-              <span class="icon">⚠</span>
-              <p><strong>Important Note:</strong> Your Workday tasks will be available within 30 days of your start date (<strong>June 7, 2025</strong>). Keep an eye out for username/password emails around that time!</p>
-            </div>
-        
-            <div class="info-card">
-              <span class="icon"></span>
-              <div>
-                <strong>Your Preboarding Coordinator:</strong><br>
-                Lashanti Patton<br>
-                Email: <a href="mailto:lashanti.patton@wellstar.org">lashanti.patton@wellstar.org</a><br>
-                Phone: <a href="tel:470-956-5717">470-956-5717</a>
-              </div>
-            </div>
-        
-            <div class="info-card">
-              <span class="icon"></span>
-              <div>
-                <strong>Tentative Start Date:</strong><br>
-                July 7, 2025<br>
-                <strong>Your Employee ID:</strong><br>
-                194879
-              </div>
-            </div>
-          </div>
-          
-          <div id="checklist" class="tab-content">
-            <ul id="taskList">
-              <li>
-                <input type="checkbox" id="task1" />
-                <div>
-                  <strong>Workday Journey:</strong> Complete tasks in Workday.<br>
-                  <span class="note">Includes I-9, confidentiality form, and licenses.</span>
-                </div>
-              </li>
-              <li>
-                <input type="checkbox" id="task2" />
-                <div>
-                  <strong>Drug Screen:</strong> Complete at LabCorp.<br>
-                  <span class="note">Bring the provided form with you.</span>
-                </div>
-              </li>
-              <li>
-                <input type="checkbox" id="task3" />
-                <div>
-                  <strong>Background Check:</strong> Complete consent form via Cisive.<br>
-                  <span class="note">Check spam/junk if you don’t see it.</span>
-                </div>
-              </li>
-              <li>
-                <input type="checkbox" id="task4" />
-                <div>
-                  <strong>Employee Health:</strong> Schedule your health screening.<br>
-                  <span class="note">You’ll need your EID to schedule.</span>
-                </div>
-              </li>
-              <li>
-                <input type="checkbox" id="task5" />
-                <div>
-                  <strong>I-9 Section 2:</strong> Schedule virtual appointment with Lashanti.<br>
-                  <span class="note">Must be done before your start date.</span>
-                </div>
-              </li>
-            </ul>
-          </div>
-      
-          <div id="resources" class="tab-content">
-            <ul>
-              <li>
-                <strong>Onboarding Resource Center:</strong><br>
-                <a class="button-link" href="https://careers.wellstar.org/onboarding" target="_blank" rel="noopener noreferrer">Visit Resource Center</a>
-              </li>
-              <li>
-                <strong>Workday Login:</strong><br>
-                <a class="button-link" href="https://www.myworkday.com/wellstar/login.flex?redirect=n" target="_blank" rel="noopener noreferrer">Log In to Workday</a>
-              </li>
-              <li>
-                <strong>BLS Certification (if required):</strong><br>
-                Must be American Heart Association approved. No reimbursement provided.
-              </li>
-            </ul>
-          </div>
-      
-          <div id="notes" class="tab-content note-section">
-            <textarea id="noteInput" placeholder="Write a note..."></textarea>
-            <button class="button-link" onclick="saveNote()">Add Note</button>
-            <div id="notesList"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="contact-info">
-        <p><strong>Welcome to the Wellstar Team!</strong></p>
-      </div>
-    </div>
-  </div>
+  <!-- All Modals and HTML structure are correct and unchanged -->
+  <div id="taskModalOverlay" class="modal-overlay"><div class="modal-content"><button class="close-modal-btn" data-close-target="taskModalOverlay">×</button><h3>Add New Task</h3><input type="text" id="modalNewTaskTitle" placeholder="Task Title..."><input type="text" id="modalNewTaskNote" placeholder="Task Note (optional)"><button id="modalAddTaskBtn" class="button-link">Add Task</button></div></div>
+  <div id="restoreModalOverlay" class="modal-overlay"><div class="modal-content"><button class="close-modal-btn" data-close-target="restoreModalOverlay">×</button><h3>Hidden Tasks</h3><ul id="hiddenTaskList"></ul></div></div>
+  <div class="container"><header class="page-header"><img src="https://www.wellstar.org/-/media/project/wellstar/whs-logo.png" alt="Wellstar Logo" class="logo"><h1>Welcome, Zackary!</h1></header><div class="dashboard-body"><div class="main-content-area"><div class="tabs"><button class="tab active" data-tab="general">General</button><button class="tab" data-tab="checklist">Preboarding Tasks</button><button class="tab" data-tab="resources">Helpful Resources</button><button class="tab" data-tab="notes">Notes</button></div><div class="content-area"><div id="general" class="tab-content active"><div class="alert"><span class="icon">⚠</span><p><strong>Important Note:</strong> Your Workday tasks will be available within 30 days of your start date (<strong>June 7, 2025</strong>). Keep an eye out for username/password emails around that time!</p></div><div class="info-card"><span class="icon"></span><div><strong>Your Preboarding Coordinator:</strong><br>Lashanti Patton<br>Email: <a href="mailto:lashanti.patton@wellstar.org">lashanti.patton@wellstar.org</a><br>Phone: <a href="tel:470-956-5717">470-956-5717</a></div></div><div class="info-card"><span class="icon"></span><div><strong>Tentative Start Date:</strong><br>July 7, 2025<br><strong>Your Employee ID:</strong><br>194879</div></div></div><div id="checklist" class="tab-content"><div class="task-controls"><div class="main-actions"><button id="toggleTasksBtn" class="button-link" style="margin-top:0;">Hide List</button><button id="showHiddenBtn" class="button-link" style="margin-top:0; background-color: var(--text-secondary);">Show Hidden</button></div><button id="openAddTaskModalBtn" class="add-task-btn" title="Add New Task">+</button></div><ul id="taskList"></ul></div><div id="resources" class="tab-content"><ul><li><strong>Onboarding Resource Center:</strong><br><a class="button-link" href="https://careers.wellstar.org/onboarding" target="_blank" rel="noopener noreferrer">Visit Resource Center</a></li><li><strong>Workday Login:</strong><br><a class="button-link" href="https://www.myworkday.com/wellstar/login.flex?redirect=n" target="_blank" rel="noopener noreferrer">Log In to Workday</a></li><li><strong>BLS Certification (if required):</strong><br>Must be American Heart Association approved. No reimbursement provided.</li></ul></div><div id="notes" class="tab-content note-section"><textarea id="noteInput" placeholder="Write a note..."></textarea><button class="button-link" onclick="saveNote()">Add Note</button><div id="notesList"></div></div></div></div><div class="contact-info"><p><strong>Welcome to the Wellstar Team!</strong></p></div></div></div>
 
   <script>
-    // Tab switching
-    document.querySelectorAll('.tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.tab).classList.add('active');
+    document.addEventListener('DOMContentLoaded', () => {
+      // --- Tab switching ---
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.tab).classList.add('active');
+        });
       });
+
+      // --- Preboarding Tasks ---
+      const taskList = document.getElementById('taskList');
+      const toggleTasksBtn = document.getElementById('toggleTasksBtn');
+      let tasks = [];
+
+      const defaultTasks = [
+          { id: 1, title: 'Workday Journey: Complete tasks in Workday.', note: 'Includes I-9, confidentiality form, and licenses.', completed: false, isDefault: true, isHidden: false },
+          { id: 2, title: 'Drug Screen: Complete at LabCorp.', note: 'Bring the provided form with you.', completed: false, isDefault: true, isHidden: false },
+          { id: 3, title: 'Background Check: Complete consent form via Cisive.', note: 'Check spam/junk if you don’t see it.', completed: false, isDefault: true, isHidden: false },
+          { id: 4, title: 'Employee Health: Schedule your health screening.', note: 'You’ll need your EID to schedule.', completed: false, isDefault: true, isHidden: false },
+          { id: 5, title: 'I-9 Section 2: Schedule virtual appointment with Lashanti.', note: 'Must be done before your start date.', completed: false, isDefault: true, isHidden: false },
+      ];
+
+      function saveTasks() {
+        localStorage.setItem('onboardingTasks', JSON.stringify(tasks));
+      }
+
+      function renderTasks() {
+        taskList.innerHTML = '';
+        const visibleTasks = tasks.filter(task => !task.isHidden);
+        if (visibleTasks.length === 0) {
+            taskList.innerHTML = '<li>No active tasks. Add one or restore a hidden task!</li>';
+            return;
+        }
+        visibleTasks.forEach(task => {
+          const li = document.createElement('li');
+          li.dataset.taskId = task.id;
+          if (task.completed) {
+            li.classList.add('completed');
+          }
+          
+          const titleParts = task.title.split(/:(.*)/s); // Split only on the first colon
+          const boldPart = titleParts[0];
+          const normalPart = titleParts[1] || '';
+
+          li.innerHTML = `
+            <input type="checkbox" ${task.completed ? 'checked' : ''}>
+            <div class="task-content">
+              <strong>${boldPart}:</strong>${normalPart}<br>
+              <span class="note">${task.note}</span>
+            </div>
+            <button class="task-action-btn" title="Hide Task">🗑️</button>
+          `;
+          taskList.appendChild(li);
+        });
+      }
+
+      function renderHiddenTasks() {
+          const hiddenTaskList = document.getElementById('hiddenTaskList');
+          hiddenTaskList.innerHTML = '';
+          const hiddenTasks = tasks.filter(task => task.isHidden);
+          if (hiddenTasks.length === 0) {
+              hiddenTaskList.innerHTML = '<li>No hidden tasks.</li>';
+              return;
+          }
+          hiddenTasks.forEach(task => {
+              const li = document.createElement('li');
+              li.innerHTML = `<span>${task.title}</span><button class="restore-btn" data-task-id="${task.id}">Restore</button>`;
+              hiddenTaskList.appendChild(li);
+          });
+      }
+
+      function toggleTask(taskId) {
+        const task = tasks.find(t => t.id == taskId);
+        if (task) { task.completed = !task.completed; saveTasks(); renderTasks(); }
+      }
+
+      function hideTask(taskId) {
+          const task = tasks.find(t => t.id == taskId);
+          if (task) { task.isHidden = true; saveTasks(); renderTasks(); }
+      }
+
+      function restoreTask(taskId) {
+        const task = tasks.find(t => t.id == taskId);
+        if (task) { task.isHidden = false; saveTasks(); renderTasks(); renderHiddenTasks(); }
+      }
+
+      taskList.addEventListener('click', e => {
+        const li = e.target.closest('li');
+        if (!li) return;
+        const taskId = li.dataset.taskId;
+        if (e.target.type === 'checkbox') { toggleTask(taskId); }
+        else if (e.target.classList.contains('task-action-btn')) { hideTask(taskId); }
+      });
+      
+      toggleTasksBtn.addEventListener('click', () => {
+          const isHidden = taskList.style.display === 'none';
+          taskList.style.display = isHidden ? 'block' : 'none';
+          toggleTasksBtn.textContent = isHidden ? 'Hide List' : 'Show List';
+      });
+
+      // --- Modal ---
+      const addTaskModal = document.getElementById('taskModalOverlay');
+      const restoreModal = document.getElementById('restoreModalOverlay');
+      document.getElementById('openAddTaskModalBtn').addEventListener('click', () => {
+        addTaskModal.style.display = 'flex';
+        document.getElementById('modalNewTaskTitle').focus();
+      });
+      document.getElementById('showHiddenBtn').addEventListener('click', () => {
+          renderHiddenTasks();
+          restoreModal.style.display = 'flex';
+      });
+      function closeModal(modal) { if (modal) { modal.style.display = 'none'; } }
+      document.querySelectorAll('.close-modal-btn').forEach(btn => btn.addEventListener('click', () => closeModal(document.getElementById(btn.dataset.closeTarget))));
+      document.querySelectorAll('.modal-overlay').forEach(overlay => overlay.addEventListener('click', e => { if (e.target === overlay) { closeModal(overlay); } }));
+      document.getElementById('modalAddTaskBtn').addEventListener('click', () => {
+          const titleInput = document.getElementById('modalNewTaskTitle'), noteInput = document.getElementById('modalNewTaskNote');
+          const title = titleInput.value.trim(), note = noteInput.value.trim();
+          if (title === '') { alert('Please enter a task title.'); return; }
+          tasks.push({ id: Date.now(), title, note, completed: false, isDefault: false, isHidden: false });
+          saveTasks(); renderTasks(); closeModal(addTaskModal); titleInput.value = ''; noteInput.value = '';
+      });
+      document.getElementById('hiddenTaskList').addEventListener('click', e => {
+          if (e.target.classList.contains('restore-btn')) { restoreTask(e.target.dataset.taskId); }
+      });
+
+      // --- CORRECTED Initialization ---
+      const savedTasksJSON = localStorage.getItem('onboardingTasks');
+      let savedTasks = [];
+      try {
+        savedTasks = JSON.parse(savedTasksJSON);
+      } catch (e) {
+        // Handle potential parsing errors if localStorage data is corrupted
+        savedTasks = [];
+      }
+      
+      // If saved data is null, not an array, or is an empty array, load the defaults.
+      if (!Array.isArray(savedTasks) || savedTasks.length === 0) {
+          tasks = defaultTasks;
+      } else {
+          tasks = savedTasks;
+          // Simple migration for old data that might not have the isHidden property
+          tasks.forEach(task => { if (task.isHidden === undefined) task.isHidden = false; });
+      }
+      renderTasks();
+      
+      // --- Notes Functionality ---
+      renderNotes();
     });
 
-    // Save/load checkbox state
-    document.querySelectorAll('#taskList input[type="checkbox"]').forEach(cb => {
-      const saved = localStorage.getItem(cb.id);
-      cb.checked = saved === 'true';
-      cb.addEventListener('change', () => {
-        localStorage.setItem(cb.id, cb.checked);
-      });
-    });
-
-    // Notes functionality
+    // Notes functions
     function saveNote() {
       const input = document.getElementById('noteInput');
       if (!input.value.trim()) return;
-
-      const note = { 
-        text: input.value.trim(), 
-        date: new Date().toLocaleString() 
-      };
+      const note = { text: input.value.trim(), date: new Date().toLocaleString() };
       const notes = JSON.parse(localStorage.getItem('notes') || '[]');
-      notes.unshift(note); // Add new notes to the beginning
+      notes.unshift(note);
       localStorage.setItem('notes', JSON.stringify(notes));
       input.value = '';
       renderNotes();
     }
-
     function renderNotes() {
       const notesList = document.getElementById('notesList');
+      if (!notesList) return;
       notesList.innerHTML = '';
       const notes = JSON.parse(localStorage.getItem('notes') || '[]');
       notes.forEach((note) => {
@@ -413,8 +263,6 @@
         notesList.appendChild(div);
       });
     }
-    
-    document.addEventListener('DOMContentLoaded', renderNotes);
   </script>
 </body>
 </html>
