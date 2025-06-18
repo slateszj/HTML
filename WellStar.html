@@ -5,21 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>WellStar Onboarding Dashboard</title>
   <style>
-    /* All CSS is correct and unchanged */
     :root {
-      --wellstar-purple: #8246AF;
-      --wellstar-caribbean-blue: #005571;
-      --wellstar-teal: #008A97;
-      --wellstar-blue: #00A7E1;
-
-      --wellstar-teal-darker: #006a75;
-      --light-purple-bg: #f8f5fc;
-      --light-purple-border: #e9d9f5;
-      --light-blue-bg: #eaf8ff;
-      --off-white-bg: #f7fafc;
-      --border-color: #e2e8f0;
-      --text-primary: #004a60;
-      --text-secondary: #5a6872;
+      --wellstar-purple: #8246AF; --wellstar-caribbean-blue: #005571; --wellstar-teal: #008A97; --wellstar-blue: #00A7E1;
+      --wellstar-teal-darker: #006a75; --light-purple-bg: #f8f5fc; --light-purple-border: #e9d9f5; --light-blue-bg: #eaf8ff;
+      --off-white-bg: #f7fafc; --border-color: #e2e8f0; --text-primary: #004a60; --text-secondary: #5a6872;
       --container-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
       --element-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.04);
     }
@@ -30,37 +19,43 @@
     h1 { color: var(--wellstar-purple); font-size: 2.1em; margin: 0; text-align: right; }
     .dashboard-body { padding: 30px; }
     .alert { background-color: #fffbe6; border: 1px solid #fde68a; color: #b45309; padding: 15px; border-radius: 8px; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; }
-    .alert strong { color: #92400e; }
-    .alert .icon { font-size: 1.6em; }
+    .alert strong { color: #92400e; } .alert .icon { font-size: 1.6em; }
     .main-content-area { display: flex; margin-top: 25px; gap: 30px; }
     .tabs { display: flex; flex-direction: column; flex-shrink: 0; flex-basis: 210px; }
     .tab { padding: 12px 18px; cursor: pointer; background: transparent; border: 1px solid transparent; border-radius: 8px; font-weight: 600; color: var(--text-primary); user-select: none; transition: background-color 0.2s ease, color 0.2s ease; text-align: left; margin-bottom: 5px; }
     .tab:hover:not(.active) { background-color: var(--light-blue-bg); color: var(--wellstar-blue); }
     .tab.active { background-color: var(--wellstar-purple); color: white; font-weight: 700; }
     .content-area { flex-grow: 1; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
+    .tab-content { display: none; } .tab-content.active { display: block; }
     .info-card { background-color: var(--light-blue-bg); border-left: 4px solid var(--wellstar-blue); padding: 20px; margin-bottom: 20px; border-radius: 8px; display: flex; align-items: flex-start; gap: 15px; color: var(--text-primary); font-weight: 500; }
-    .info-card strong { font-weight: 700; }
-    .info-card .icon { font-size: 1.7em; color: var(--wellstar-blue); flex-shrink: 0; margin-top: 2px; }
-    .info-card a { color: var(--wellstar-teal); font-weight: 600; text-decoration: none; }
-    .info-card a:hover { text-decoration: underline; }
+    .info-card strong { font-weight: 700; } .info-card .icon { font-size: 1.7em; color: var(--wellstar-blue); flex-shrink: 0; margin-top: 2px; }
+    .info-card a { color: var(--wellstar-teal); font-weight: 600; text-decoration: none; } .info-card a:hover { text-decoration: underline; }
     ul { list-style: none; padding-left: 0; margin: 0; }
     li { background: var(--off-white-bg); border: 1px solid var(--border-color); margin-bottom: 10px; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 15px; transition: box-shadow 0.2s ease, background-color 0.2s ease, opacity 0.3s ease; }
     li:hover { box-shadow: var(--element-shadow); }
     input[type="checkbox"] { margin-top: 0; transform: scale(1.4); cursor: pointer; flex-shrink: 0; accent-color: var(--wellstar-purple); }
-    .task-content { flex-grow: 1; }
+    .item-content { flex-grow: 1; }
+    /* MODIFIED: Styling for the new hyperlinked resource titles */
+    .item-content a {
+      color: var(--wellstar-teal);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .item-content a:hover {
+      text-decoration: underline;
+      color: var(--wellstar-teal-darker);
+    }
     .note { font-style: italic; color: var(--text-secondary); font-size: 0.9em; margin-top: 5px; }
-    li.completed .task-content { color: var(--text-secondary); text-decoration: line-through; opacity: 0.7; }
-    li.completed .task-content .note { color: #a0aec0; }
-    .task-action-btn { background: none; border: none; font-size: 1.5em; cursor: pointer; color: #cbd5e0; transition: color 0.2s ease; padding: 0 5px; flex-shrink: 0; }
-    .task-action-btn:hover { color: #f56565; }
+    li.completed .item-content { color: var(--text-secondary); text-decoration: line-through; opacity: 0.7; }
+    li.completed .item-content .note { color: #a0aec0; }
+    .item-action-btn { background: none; border: none; font-size: 1.5em; cursor: pointer; color: #cbd5e0; transition: color 0.2s ease; padding: 0 5px; flex-shrink: 0; }
+    .item-action-btn:hover { color: #f56565; }
     .button-link { display: inline-block; background-color: var(--wellstar-teal); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; margin-top: 10px; transition: background-color 0.2s ease; font-weight: 600; border: none; cursor: pointer; }
     .button-link:hover { background-color: var(--wellstar-teal-darker); }
-    .task-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;}
-    .task-controls .main-actions { display: flex; gap: 10px; align-items: center;}
-    .add-task-btn { background-color: var(--wellstar-purple); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 24px; font-weight: bold; cursor: pointer; line-height: 40px; text-align: center; transition: background-color 0.2s ease; flex-shrink: 0; }
-    .add-task-btn:hover { background-color: #6a3a8e; }
+    .controls-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;}
+    .controls-header .main-actions { display: flex; gap: 10px; align-items: center;}
+    .add-item-btn { background-color: var(--wellstar-purple); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 24px; font-weight: bold; cursor: pointer; line-height: 40px; text-align: center; transition: background-color 0.2s ease; flex-shrink: 0; }
+    .add-item-btn:hover { background-color: #6a3a8e; }
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); display: none; justify-content: center; align-items: center; z-index: 1000; transition: opacity 0.3s ease; }
     .modal-content { background: white; padding: 30px; border-radius: 12px; box-shadow: var(--container-shadow); width: 90%; max-width: 500px; position: relative; }
     .close-modal-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.8em; cursor: pointer; color: #9ca3af; }
@@ -68,8 +63,8 @@
     .modal-content h3 { margin-top: 0; color: var(--text-primary); }
     .modal-content input[type="text"] { width: 100%; box-sizing: border-box; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 1em; }
     .modal-content input[type="text"]:focus { border-color: var(--wellstar-blue); outline: none; box-shadow: 0 0 0 2px var(--light-blue-bg); }
-    #hiddenTaskList { margin-top: 20px; max-height: 40vh; overflow-y: auto; }
-    #hiddenTaskList li { justify-content: space-between; padding: 10px 15px; }
+    .hidden-item-list { margin-top: 20px; max-height: 40vh; overflow-y: auto; }
+    .hidden-item-list li { justify-content: space-between; padding: 10px 15px; }
     .restore-btn { background-color: var(--wellstar-blue); color: white; border: none; padding: 5px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: background-color 0.2s ease; }
     .restore-btn:hover { background-color: #007bb5; }
     .note-section textarea { width: 100%; box-sizing: border-box; height: 70px; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid var(--border-color); resize: vertical; font-size: 1em; font-family: inherit; }
@@ -82,14 +77,19 @@
   </style>
 </head>
 <body>
-  <!-- All Modals and HTML structure are correct and unchanged -->
+  <!-- Task Modals -->
   <div id="taskModalOverlay" class="modal-overlay"><div class="modal-content"><button class="close-modal-btn" data-close-target="taskModalOverlay">×</button><h3>Add New Task</h3><input type="text" id="modalNewTaskTitle" placeholder="Task Title..."><input type="text" id="modalNewTaskNote" placeholder="Task Note (optional)"><button id="modalAddTaskBtn" class="button-link">Add Task</button></div></div>
-  <div id="restoreModalOverlay" class="modal-overlay"><div class="modal-content"><button class="close-modal-btn" data-close-target="restoreModalOverlay">×</button><h3>Hidden Tasks</h3><ul id="hiddenTaskList"></ul></div></div>
-  <div class="container"><header class="page-header"><img src="https://www.wellstar.org/-/media/project/wellstar/whs-logo.png" alt="Wellstar Logo" class="logo"><h1>Welcome, Zackary!</h1></header><div class="dashboard-body"><div class="main-content-area"><div class="tabs"><button class="tab active" data-tab="general">General</button><button class="tab" data-tab="checklist">Preboarding Tasks</button><button class="tab" data-tab="resources">Helpful Resources</button><button class="tab" data-tab="notes">Notes</button></div><div class="content-area"><div id="general" class="tab-content active"><div class="alert"><span class="icon">⚠</span><p><strong>Important Note:</strong> Your Workday tasks will be available within 30 days of your start date (<strong>June 7, 2025</strong>). Keep an eye out for username/password emails around that time!</p></div><div class="info-card"><span class="icon"></span><div><strong>Your Preboarding Coordinator:</strong><br>Lashanti Patton<br>Email: <a href="mailto:lashanti.patton@wellstar.org">lashanti.patton@wellstar.org</a><br>Phone: <a href="tel:470-956-5717">470-956-5717</a></div></div><div class="info-card"><span class="icon"></span><div><strong>Tentative Start Date:</strong><br>July 7, 2025<br><strong>Your Employee ID:</strong><br>194879</div></div></div><div id="checklist" class="tab-content"><div class="task-controls"><div class="main-actions"><button id="toggleTasksBtn" class="button-link" style="margin-top:0;">Hide List</button><button id="showHiddenBtn" class="button-link" style="margin-top:0; background-color: var(--text-secondary);">Show Hidden</button></div><button id="openAddTaskModalBtn" class="add-task-btn" title="Add New Task">+</button></div><ul id="taskList"></ul></div><div id="resources" class="tab-content"><ul><li><strong>Onboarding Resource Center:</strong><br><a class="button-link" href="https://careers.wellstar.org/onboarding" target="_blank" rel="noopener noreferrer">Visit Resource Center</a></li><li><strong>Workday Login:</strong><br><a class="button-link" href="https://www.myworkday.com/wellstar/login.flex?redirect=n" target="_blank" rel="noopener noreferrer">Log In to Workday</a></li><li><strong>BLS Certification (if required):</strong><br>Must be American Heart Association approved. No reimbursement provided.</li></ul></div><div id="notes" class="tab-content note-section"><textarea id="noteInput" placeholder="Write a note..."></textarea><button class="button-link" onclick="saveNote()">Add Note</button><div id="notesList"></div></div></div></div><div class="contact-info"><p><strong>Welcome to the Wellstar Team!</strong></p></div></div></div>
+  <div id="restoreTaskModalOverlay" class="modal-overlay"><div class="modal-content"><button class="close-modal-btn" data-close-target="restoreTaskModalOverlay">×</button><h3>Hidden Tasks</h3><ul id="hiddenTaskList" class="hidden-item-list"></ul></div></div>
+
+  <!-- Resource Modals -->
+  <div id="resourceModalOverlay" class="modal-overlay"><div class="modal-content"><button class="close-modal-btn" data-close-target="resourceModalOverlay">×</button><h3>Add New Resource</h3><input type="text" id="modalNewResourceTitle" placeholder="Resource Title..."><input type="text" id="modalNewResourceNote" placeholder="Description..."><input type="text" id="modalNewResourceLink" placeholder="URL Link (optional)"><button id="modalAddResourceBtn" class="button-link">Add Resource</button></div></div>
+  <div id="restoreResourceModalOverlay" class="modal-overlay"><div class="modal-content"><button class="close-modal-btn" data-close-target="restoreResourceModalOverlay">×</button><h3>Hidden Resources</h3><ul id="hiddenResourceList" class="hidden-item-list"></ul></div></div>
+
+  <div class="container"><header class="page-header"><img src="https://www.wellstar.org/-/media/project/wellstar/whs-logo.png" alt="Wellstar Logo" class="logo"><h1>Welcome, Zackary!</h1></header><div class="dashboard-body"><div class="main-content-area"><div class="tabs"><button class="tab active" data-tab="general">General</button><button class="tab" data-tab="checklist">Preboarding Tasks</button><button class="tab" data-tab="resources">Helpful Resources</button><button class="tab" data-tab="notes">Notes</button></div><div class="content-area"><div id="general" class="tab-content active"><div class="alert"><span class="icon">⚠</span><p><strong>Important Note:</strong> Your Workday tasks will be available within 30 days of your start date (<strong>June 7, 2025</strong>). Keep an eye out for username/password emails around that time!</p></div><div class="info-card"><span class="icon"></span><div><strong>Your Preboarding Coordinator:</strong><br>Lashanti Patton<br>Email: <a href="mailto:lashanti.patton@wellstar.org">lashanti.patton@wellstar.org</a><br>Phone: <a href="tel:470-956-5717">470-956-5717</a></div></div><div class="info-card"><span class="icon"></span><div><strong>Tentative Start Date:</strong><br>July 7, 2025<br><strong>Your Employee ID:</strong><br>194879</div></div></div><div id="checklist" class="tab-content"><div class="controls-header"><div class="main-actions"><button id="toggleTasksBtn" class="button-link" style="margin-top:0;">Hide List</button><button id="showHiddenTasksBtn" class="button-link" style="margin-top:0; background-color: var(--text-secondary);">Show Hidden</button></div><button id="openAddTaskModalBtn" class="add-item-btn" title="Add New Task">+</button></div><ul id="taskList"></ul></div><div id="resources" class="tab-content"><div class="controls-header"><div class="main-actions"><button id="toggleResourcesBtn" class="button-link" style="margin-top:0;">Hide List</button><button id="showHiddenResourcesBtn" class="button-link" style="margin-top:0; background-color: var(--text-secondary);">Show Hidden</button></div><button id="openAddResourceModalBtn" class="add-item-btn" title="Add New Resource">+</button></div><ul id="resourceList"></ul></div><div id="notes" class="tab-content note-section"><textarea id="noteInput" placeholder="Write a note..."></textarea><button class="button-link" onclick="saveNote()">Add Note</button><div id="notesList"></div></div></div></div><div class="contact-info"><p><strong>Welcome to the Wellstar Team!</strong></p></div></div></div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // --- Tab switching ---
+      // --- Tab Switching ---
       document.querySelectorAll('.tab').forEach(tab => {
         tab.addEventListener('click', () => {
           document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -99,11 +99,11 @@
         });
       });
 
-      // --- Preboarding Tasks ---
+      // =================================================================================
+      // --- PREBOARDING TASKS FUNCTIONALITY ---
+      // =================================================================================
       const taskList = document.getElementById('taskList');
-      const toggleTasksBtn = document.getElementById('toggleTasksBtn');
       let tasks = [];
-
       const defaultTasks = [
           { id: 1, title: 'Workday Journey: Complete tasks in Workday.', note: 'Includes I-9, confidentiality form, and licenses.', completed: false, isDefault: true, isHidden: false },
           { id: 2, title: 'Drug Screen: Complete at LabCorp.', note: 'Bring the provided form with you.', completed: false, isDefault: true, isHidden: false },
@@ -112,36 +112,18 @@
           { id: 5, title: 'I-9 Section 2: Schedule virtual appointment with Lashanti.', note: 'Must be done before your start date.', completed: false, isDefault: true, isHidden: false },
       ];
 
-      function saveTasks() {
-        localStorage.setItem('onboardingTasks', JSON.stringify(tasks));
-      }
+      function saveTasks() { localStorage.setItem('onboardingTasks', JSON.stringify(tasks)); }
 
       function renderTasks() {
         taskList.innerHTML = '';
         const visibleTasks = tasks.filter(task => !task.isHidden);
-        if (visibleTasks.length === 0) {
-            taskList.innerHTML = '<li>No active tasks. Add one or restore a hidden task!</li>';
-            return;
-        }
+        if (visibleTasks.length === 0) { taskList.innerHTML = '<li>No active tasks. Add one or restore a hidden task!</li>'; return; }
         visibleTasks.forEach(task => {
           const li = document.createElement('li');
           li.dataset.taskId = task.id;
-          if (task.completed) {
-            li.classList.add('completed');
-          }
-          
-          const titleParts = task.title.split(/:(.*)/s); // Split only on the first colon
-          const boldPart = titleParts[0];
-          const normalPart = titleParts[1] || '';
-
-          li.innerHTML = `
-            <input type="checkbox" ${task.completed ? 'checked' : ''}>
-            <div class="task-content">
-              <strong>${boldPart}:</strong>${normalPart}<br>
-              <span class="note">${task.note}</span>
-            </div>
-            <button class="task-action-btn" title="Hide Task">🗑️</button>
-          `;
+          if (task.completed) { li.classList.add('completed'); }
+          const titleParts = task.title.split(/:(.*)/s);
+          li.innerHTML = `<input type="checkbox" ${task.completed ? 'checked' : ''}><div class="item-content"><strong>${titleParts[0]}:</strong>${titleParts[1] || ''}<br><span class="note">${task.note}</span></div><button class="item-action-btn" title="Hide Task">🗑️</button>`;
           taskList.appendChild(li);
         });
       }
@@ -150,10 +132,7 @@
           const hiddenTaskList = document.getElementById('hiddenTaskList');
           hiddenTaskList.innerHTML = '';
           const hiddenTasks = tasks.filter(task => task.isHidden);
-          if (hiddenTasks.length === 0) {
-              hiddenTaskList.innerHTML = '<li>No hidden tasks.</li>';
-              return;
-          }
+          if (hiddenTasks.length === 0) { hiddenTaskList.innerHTML = '<li>No hidden tasks.</li>'; return; }
           hiddenTasks.forEach(task => {
               const li = document.createElement('li');
               li.innerHTML = `<span>${task.title}</span><button class="restore-btn" data-task-id="${task.id}">Restore</button>`;
@@ -161,49 +140,26 @@
           });
       }
 
-      function toggleTask(taskId) {
-        const task = tasks.find(t => t.id == taskId);
-        if (task) { task.completed = !task.completed; saveTasks(); renderTasks(); }
-      }
-
-      function hideTask(taskId) {
-          const task = tasks.find(t => t.id == taskId);
-          if (task) { task.isHidden = true; saveTasks(); renderTasks(); }
-      }
-
-      function restoreTask(taskId) {
-        const task = tasks.find(t => t.id == taskId);
-        if (task) { task.isHidden = false; saveTasks(); renderTasks(); renderHiddenTasks(); }
-      }
+      function toggleTask(taskId) { const task = tasks.find(t => t.id == taskId); if (task) { task.completed = !task.completed; saveTasks(); renderTasks(); } }
+      function hideTask(taskId) { const task = tasks.find(t => t.id == taskId); if (task) { task.isHidden = true; saveTasks(); renderTasks(); } }
+      function restoreTask(taskId) { const task = tasks.find(t => t.id == taskId); if (task) { task.isHidden = false; saveTasks(); renderTasks(); renderHiddenTasks(); } }
 
       taskList.addEventListener('click', e => {
-        const li = e.target.closest('li');
-        if (!li) return;
+        const li = e.target.closest('li'); if (!li) return;
         const taskId = li.dataset.taskId;
-        if (e.target.type === 'checkbox') { toggleTask(taskId); }
-        else if (e.target.classList.contains('task-action-btn')) { hideTask(taskId); }
+        if (e.target.type === 'checkbox') { toggleTask(taskId); } 
+        else if (e.target.classList.contains('item-action-btn')) { hideTask(taskId); }
       });
       
-      toggleTasksBtn.addEventListener('click', () => {
+      document.getElementById('toggleTasksBtn').addEventListener('click', () => {
           const isHidden = taskList.style.display === 'none';
           taskList.style.display = isHidden ? 'block' : 'none';
-          toggleTasksBtn.textContent = isHidden ? 'Hide List' : 'Show List';
+          document.getElementById('toggleTasksBtn').textContent = isHidden ? 'Hide List' : 'Show List';
       });
 
-      // --- Modal ---
       const addTaskModal = document.getElementById('taskModalOverlay');
-      const restoreModal = document.getElementById('restoreModalOverlay');
-      document.getElementById('openAddTaskModalBtn').addEventListener('click', () => {
-        addTaskModal.style.display = 'flex';
-        document.getElementById('modalNewTaskTitle').focus();
-      });
-      document.getElementById('showHiddenBtn').addEventListener('click', () => {
-          renderHiddenTasks();
-          restoreModal.style.display = 'flex';
-      });
-      function closeModal(modal) { if (modal) { modal.style.display = 'none'; } }
-      document.querySelectorAll('.close-modal-btn').forEach(btn => btn.addEventListener('click', () => closeModal(document.getElementById(btn.dataset.closeTarget))));
-      document.querySelectorAll('.modal-overlay').forEach(overlay => overlay.addEventListener('click', e => { if (e.target === overlay) { closeModal(overlay); } }));
+      document.getElementById('openAddTaskModalBtn').addEventListener('click', () => { addTaskModal.style.display = 'flex'; document.getElementById('modalNewTaskTitle').focus(); });
+      document.getElementById('showHiddenTasksBtn').addEventListener('click', () => { renderHiddenTasks(); document.getElementById('restoreTaskModalOverlay').style.display = 'flex'; });
       document.getElementById('modalAddTaskBtn').addEventListener('click', () => {
           const titleInput = document.getElementById('modalNewTaskTitle'), noteInput = document.getElementById('modalNewTaskNote');
           const title = titleInput.value.trim(), note = noteInput.value.trim();
@@ -211,58 +167,108 @@
           tasks.push({ id: Date.now(), title, note, completed: false, isDefault: false, isHidden: false });
           saveTasks(); renderTasks(); closeModal(addTaskModal); titleInput.value = ''; noteInput.value = '';
       });
-      document.getElementById('hiddenTaskList').addEventListener('click', e => {
-          if (e.target.classList.contains('restore-btn')) { restoreTask(e.target.dataset.taskId); }
+      document.getElementById('hiddenTaskList').addEventListener('click', e => { if (e.target.classList.contains('restore-btn')) { restoreTask(e.target.dataset.taskId); } });
+
+
+      // =================================================================================
+      // --- HELPFUL RESOURCES FUNCTIONALITY ---
+      // =================================================================================
+      const resourceList = document.getElementById('resourceList');
+      let resources = [];
+      const defaultResources = [
+        { id: 101, title: 'Onboarding Resource Center', note: 'The main hub for all onboarding information.', link: 'https://careers.wellstar.org/onboarding', isDefault: true, isHidden: false },
+        { id: 102, title: 'Workday Login', note: 'Access your Workday profile and tasks.', link: 'https://www.myworkday.com/wellstar/login.flex?redirect=n', isDefault: true, isHidden: false },
+        { id: 103, title: 'BLS Certification (if required)', note: 'Must be American Heart Association approved. No reimbursement provided.', link: null, isDefault: true, isHidden: false }
+      ];
+
+      function saveResources() { localStorage.setItem('onboardingResources', JSON.stringify(resources)); }
+
+      // MODIFIED: This function now renders the title as the link
+      function renderResources() {
+        resourceList.innerHTML = '';
+        const visibleResources = resources.filter(res => !res.isHidden);
+        if (visibleResources.length === 0) { resourceList.innerHTML = '<li>No active resources. Add one or restore a hidden one!</li>'; return; }
+        visibleResources.forEach(res => {
+          const li = document.createElement('li');
+          li.dataset.resourceId = res.id;
+          
+          // If a link exists, make the title a hyperlink. Otherwise, just make it bold text.
+          const titleElement = res.link
+            ? `<a href="${res.link}" target="_blank" rel="noopener noreferrer">${res.title}</a>`
+            : `<strong>${res.title}</strong>`;
+          
+          // The old button is removed, and titleElement is used instead.
+          li.innerHTML = `<div class="item-content">${titleElement}<br><span class="note">${res.note}</span></div><button class="item-action-btn" title="Hide Resource">🗑️</button>`;
+          resourceList.appendChild(li);
+        });
+      }
+
+      function renderHiddenResources() {
+          const hiddenResourceList = document.getElementById('hiddenResourceList');
+          hiddenResourceList.innerHTML = '';
+          const hiddenResources = resources.filter(res => res.isHidden);
+          if (hiddenResources.length === 0) { hiddenResourceList.innerHTML = '<li>No hidden resources.</li>'; return; }
+          hiddenResources.forEach(res => {
+              const li = document.createElement('li');
+              li.innerHTML = `<span>${res.title}</span><button class="restore-btn" data-resource-id="${res.id}">Restore</button>`;
+              hiddenResourceList.appendChild(li);
+          });
+      }
+
+      function hideResource(resourceId) { const res = resources.find(r => r.id == resourceId); if (res) { res.isHidden = true; saveResources(); renderResources(); } }
+      function restoreResource(resourceId) { const res = resources.find(r => r.id == resourceId); if (res) { res.isHidden = false; saveResources(); renderResources(); renderHiddenResources(); } }
+
+      resourceList.addEventListener('click', e => {
+        const li = e.target.closest('li'); if (!li) return;
+        if (e.target.classList.contains('item-action-btn')) { hideResource(li.dataset.resourceId); }
       });
 
-      // --- CORRECTED Initialization ---
-      const savedTasksJSON = localStorage.getItem('onboardingTasks');
-      let savedTasks = [];
-      try {
-        savedTasks = JSON.parse(savedTasksJSON);
-      } catch (e) {
-        // Handle potential parsing errors if localStorage data is corrupted
-        savedTasks = [];
+      document.getElementById('toggleResourcesBtn').addEventListener('click', () => {
+          const isHidden = resourceList.style.display === 'none';
+          resourceList.style.display = isHidden ? 'block' : 'none';
+          document.getElementById('toggleResourcesBtn').textContent = isHidden ? 'Hide List' : 'Show List';
+      });
+
+      const addResourceModal = document.getElementById('resourceModalOverlay');
+      document.getElementById('openAddResourceModalBtn').addEventListener('click', () => { addResourceModal.style.display = 'flex'; document.getElementById('modalNewResourceTitle').focus(); });
+      document.getElementById('showHiddenResourcesBtn').addEventListener('click', () => { renderHiddenResources(); document.getElementById('restoreResourceModalOverlay').style.display = 'flex'; });
+      document.getElementById('modalAddResourceBtn').addEventListener('click', () => {
+          const title = document.getElementById('modalNewResourceTitle').value.trim();
+          const note = document.getElementById('modalNewResourceNote').value.trim();
+          const link = document.getElementById('modalNewResourceLink').value.trim();
+          if (title === '') { alert('Please enter a resource title.'); return; }
+          resources.push({ id: Date.now(), title, note, link: link || null, isDefault: false, isHidden: false });
+          saveResources(); renderResources(); closeModal(addResourceModal);
+          document.getElementById('modalNewResourceTitle').value = ''; document.getElementById('modalNewResourceNote').value = ''; document.getElementById('modalNewResourceLink').value = '';
+      });
+      document.getElementById('hiddenResourceList').addEventListener('click', e => { if (e.target.classList.contains('restore-btn')) { restoreResource(e.target.dataset.resourceId); } });
+
+      // =================================================================================
+      // --- INITIALIZATION & GENERAL FUNCTIONS ---
+      // =================================================================================
+      function initializeData(storageKey, defaultData, setData) {
+        let savedData = [];
+        try { savedData = JSON.parse(localStorage.getItem(storageKey)); } catch (e) { savedData = null; }
+        if (!Array.isArray(savedData) || savedData.length === 0) { setData(defaultData); } 
+        else { savedData.forEach(item => { if (item.isHidden === undefined) item.isHidden = false; }); setData(savedData); }
       }
+
+      initializeData('onboardingTasks', defaultTasks, (data) => tasks = data);
+      initializeData('onboardingResources', defaultResources, (data) => resources = data);
       
-      // If saved data is null, not an array, or is an empty array, load the defaults.
-      if (!Array.isArray(savedTasks) || savedTasks.length === 0) {
-          tasks = defaultTasks;
-      } else {
-          tasks = savedTasks;
-          // Simple migration for old data that might not have the isHidden property
-          tasks.forEach(task => { if (task.isHidden === undefined) task.isHidden = false; });
-      }
       renderTasks();
+      renderResources();
       
-      // --- Notes Functionality ---
+      function closeModal(modal) { if (modal) { modal.style.display = 'none'; } }
+      document.querySelectorAll('.close-modal-btn').forEach(btn => btn.addEventListener('click', () => closeModal(document.getElementById(btn.dataset.closeTarget))));
+      document.querySelectorAll('.modal-overlay').forEach(overlay => overlay.addEventListener('click', e => { if (e.target === overlay) { closeModal(overlay); } }));
+      
       renderNotes();
     });
 
     // Notes functions
-    function saveNote() {
-      const input = document.getElementById('noteInput');
-      if (!input.value.trim()) return;
-      const note = { text: input.value.trim(), date: new Date().toLocaleString() };
-      const notes = JSON.parse(localStorage.getItem('notes') || '[]');
-      notes.unshift(note);
-      localStorage.setItem('notes', JSON.stringify(notes));
-      input.value = '';
-      renderNotes();
-    }
-    function renderNotes() {
-      const notesList = document.getElementById('notesList');
-      if (!notesList) return;
-      notesList.innerHTML = '';
-      const notes = JSON.parse(localStorage.getItem('notes') || '[]');
-      notes.forEach((note) => {
-        const div = document.createElement('div');
-        div.className = 'note-item';
-        div.innerHTML = `<div class="note-date">${note.date}</div><div>${note.text.replace(/\n/g, '<br>')}</div>`;
-        div.onclick = () => div.classList.toggle('expanded');
-        notesList.appendChild(div);
-      });
-    }
+    function saveNote() { const input = document.getElementById('noteInput'); if (!input.value.trim()) return; const note = { text: input.value.trim(), date: new Date().toLocaleString() }; const notes = JSON.parse(localStorage.getItem('notes') || '[]'); notes.unshift(note); localStorage.setItem('notes', JSON.stringify(notes)); input.value = ''; renderNotes(); }
+    function renderNotes() { const notesList = document.getElementById('notesList'); if (!notesList) return; notesList.innerHTML = ''; const notes = JSON.parse(localStorage.getItem('notes') || '[]'); notes.forEach((note) => { const div = document.createElement('div'); div.className = 'note-item'; div.innerHTML = `<div class="note-date">${note.date}</div><div>${note.text.replace(/\n/g, '<br>')}</div>`; div.onclick = () => div.classList.toggle('expanded'); notesList.appendChild(div); }); }
   </script>
 </body>
 </html>
